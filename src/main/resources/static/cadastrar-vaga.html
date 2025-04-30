@@ -2,105 +2,83 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Vaga</title>
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/vaga_card_styles.css">
     <style>
-        #form-cadastro-vaga {
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-          max-width: 500px;
-          margin: 2rem auto;
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
         }
-
+        label {
+            min-width: 120px;
+        }
         input, textarea, button {
-          padding: 10px;
-          font-size: 1rem;
-        }
-
-        #mensagem {
-          text-align: center;
-          margin-top: 1rem;
-          font-weight: bold;
+            flex: 1 1 200px;
         }
     </style>
 </head>
 <body>
-<header>
-    <h1>Cadastrar Vaga</h1>
-</header>
-
-<nav>
-    <ul>
-        <li><a href="index.html">Página Inicial</a></li>
-        <li><a href="cadastrar-vaga.html">Cadastrar Vaga</a></li>
-        <li><a href="vagas.html">Visualizar Vagas</a></li>
-    </ul>
-</nav>
-
 <main>
-    <section id="vaga-cadastro">
-        <h2>Cadastrar Nova Vaga</h2>
-        <form id="form-cadastro-vaga">
-            <input type="text" id="titulo" placeholder="Título da vaga" required />
-            <input type="text" id="local" placeholder="Local da vaga" required />
-            <textarea id="descricao" placeholder="Descrição da vaga" required></textarea>
-            <input type="text" id="acessibilidade" placeholder="Acessibilidade (separado por vírgula)" />
-            <input type="number" id="empregador-id" placeholder="ID do Empregador" required />
-            <button type="submit">Cadastrar Vaga</button>
-        </form>
-        <p id="mensagem"></p>
-    </section>
+    <h1>Cadastro de Vaga</h1>
+    <form id="form-vaga" autocomplete="on">
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" name="titulo" required>
+
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" name="descricao" required></textarea>
+
+        <label for="local">Local:</label>
+        <input type="text" id="local" name="local" required>
+
+        <label for="salario">Salário:</label>
+        <input type="number" id="salario" name="salario" step="0.01" required>
+
+        <label for="empregadorId">ID do Empregador:</label>
+        <input type="number" id="empregadorId" name="empregadorId" required>
+
+        <button type="submit">Cadastrar Vaga</button>
+    </form>
 </main>
 
-<footer>
-    <p>&copy; 2025 Plataforma PCD - Todos os direitos reservados.</p>
-</footer>
-
 <script>
-    document.getElementById("form-cadastro-vaga").addEventListener("submit", function (e) {
-      e.preventDefault();
+    document.getElementById("form-vaga").addEventListener("submit", async function (e) {
+        e.preventDefault();
 
-      const titulo = document.getElementById("titulo").value;
-      const local = document.getElementById("local").value;
-      const descricao = document.getElementById("descricao").value;
-      const acessibilidadeRaw = document.getElementById("acessibilidade").value;
-      const empregadorId = document.getElementById("empregador-id").value;
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
 
-      const vaga = {
-        titulo,
-        local,
-        descricao,
-        acessibilidade: acessibilidadeRaw.split(",").map(e => e.trim()).filter(Boolean),
-        empregador: { id: parseInt(empregadorId) }
-      };
+        const vagaDTO = {
+            titulo: data.titulo,
+            descricao: data.descricao,
+            local: data.local,
+            salario: parseFloat(data.salario),
+            empregadorId: parseInt(data.empregadorId)
+        };
 
-      fetch("http://localhost:8080/vagas/cadastrar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(vaga)
-      })
-      .then(res => {
-        const msg = document.getElementById("mensagem");
-        if (res.ok) {
-          msg.textContent = "✅ Vaga cadastrada com sucesso!";
-          msg.style.color = "green";
-          document.getElementById("form-cadastro-vaga").reset();
-        } else {
-          return res.text().then(text => {
-            msg.textContent = "❌ Erro ao cadastrar: " + text;
-            msg.style.color = "red";
-          });
+        try {
+            const response = await fetch("http://localhost:8081/vagas/cadastrar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(vagaDTO),
+                mode: "cors",
+                credentials: "omit"
+            });
+
+            if (response.ok) {
+                alert("Vaga cadastrada com sucesso!");
+                this.reset();
+            } else {
+                const errorText = await response.text();
+                alert("Erro ao cadastrar vaga:\n" + errorText);
+            }
+        } catch (err) {
+            alert("Erro ao conectar com o servidor.");
+            console.error(err);
         }
-      })
-      .catch(error => {
-        document.getElementById("mensagem").textContent = "❌ Erro na requisição: " + error.message;
-        document.getElementById("mensagem").style.color = "red";
-      });
     });
 </script>
 </body>

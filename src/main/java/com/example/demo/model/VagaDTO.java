@@ -21,6 +21,18 @@ public class VagaDTO {
     @NotNull(message = "O ID do empregador é obrigatório")
     private Long empregadorId;
 
+    @NotNull(message = "O salário é obrigatório")
+    private Double salario;
+
+    public Double getSalario() {
+        return salario;
+    }
+
+    public void setSalario(Double salario) {
+        this.salario = salario;
+    }
+
+
     // Getters e Setters
     public String getTitulo() {
         return titulo;

@@ -13,14 +13,16 @@ public class SecurityConfig implements WebMvcConfigurer {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(cors -> {})  // Ativa o suporte real de CORS!
+                .cors(cors -> {})
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/",
                                 "/index.html",
                                 "/vagas.html",
+                                "/vagas/listar",
                                 "/vagas/listar-sem-paginacao",
+                                "/vagas/cadastrar",
                                 "/vagas/**",
                                 "/candidatos",
                                 "/candidatos/**",
@@ -37,7 +39,8 @@ public class SecurityConfig implements WebMvcConfigurer {
                                 "/empregadores/**",
                                 "/css/**",
                                 "/js/**",
-                                "/images/**"
+                                "/images/**",
+                                "/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 );
@@ -45,13 +48,12 @@ public class SecurityConfig implements WebMvcConfigurer {
         return http.build();
     }
 
-    // Configuração CORS moderna
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOriginPatterns("*") // substitui allowedOrigins("*") no Spring moderno
+                .allowedOriginPatterns("*")
                 .allowedMethods("*")
                 .allowedHeaders("*")
-                .allowCredentials(true);
-    }
+                .allowCredentials(false);
+        }
 }

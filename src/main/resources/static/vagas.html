@@ -1,45 +1,45 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Listagem de Vagas</title>
-    <link rel="stylesheet" href="/css/vaga_card_styles.css">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <title>Vagas Disponíveis</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<h1>Vagas Disponíveis</h1>
-<div id="vaga-lista"></div>
+<main>
+    <h1>Vagas Disponíveis</h1>
+    <div id="vaga-lista"></div>
+</main>
 
 <script>
-    function obterVagas() {
-        fetch("http://localhost:8080/vagas/listar-sem-paginacao")
-            .then(response => response.json())
-            .then(vagas => {
-                const vagaLista = document.getElementById("vaga-lista");
-                vagaLista.innerHTML = "";
+    async function obterVagas() {
+        try {
+            const response = await fetch("http://localhost:8081/vagas/listar-sem-paginacao");
+            const vagas = await response.json();
 
-                if (!vagas.length) {
-                    vagaLista.innerHTML = "<p>Não há vagas disponíveis.</p>";
-                    return;
-                }
+            const container = document.getElementById("vaga-lista");
+            container.innerHTML = "";
 
-                vagas.forEach(vaga => {
-                    const vagaElement = document.createElement("div");
-                    vagaElement.classList.add("vaga-card");
+            if (!vagas.length) {
+                container.innerHTML = "<p>Nenhuma vaga disponível.</p>";
+                return;
+            }
 
-                    vagaElement.innerHTML = `
-                        <h3>${vaga.titulo}</h3>
-                        <p><strong>Descrição:</strong> ${vaga.descricao || 'Não especificado'}</p>
-                        <p><strong>Requisitos:</strong> ${vaga.requisitos || 'Não especificado'}</p>
-                        <p><strong>Tipo de Deficiência:</strong> ${vaga.tipoDeficiencia || 'Não especificado'}</p>
-                    `;
-
-                    vagaLista.appendChild(vagaElement);
-                });
-            })
-            .catch(error => {
-                console.error("Erro ao carregar as vagas:", error);
+            vagas.forEach(vaga => {
+                const card = document.createElement("div");
+                card.classList.add("vaga-card");
+                card.innerHTML = `
+                    <h3>${vaga.titulo}</h3>
+                    <p><strong>Descrição:</strong> ${vaga.descricao}</p>
+                    <p><strong>Local:</strong> ${vaga.localizacao || "Não informado"}</p>
+                    <p><strong>Salário:</strong> R$ ${vaga.salario?.toFixed(2) || "0.00"}</p>
+                    <p><strong>Empresa:</strong> ${vaga.empregador?.nome || "Desconhecida"}</p>
+                `;
+                container.appendChild(card);
             });
+        } catch (err) {
+            console.error("Erro ao buscar vagas:", err);
+        }
     }
 
     window.onload = obterVagas;
