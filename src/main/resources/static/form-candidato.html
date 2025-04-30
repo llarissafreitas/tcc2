@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Candidato</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<main>
+    <h1>Cadastro de Candidato</h1>
+    <form id="form-candidato">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" name="telefone" required>
+
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" required>
+
+        <label for="endereco">Endereço:</label>
+        <input type="text" id="endereco" name="endereco" required>
+
+        <label for="habilidades">Habilidades:</label>
+        <input type="text" id="habilidades" name="habilidades">
+
+        <label for="experiencia">Experiência:</label>
+        <input type="text" id="experiencia" name="experiencia">
+
+        <label for="escolaridade">Escolaridade:</label>
+        <input type="text" id="escolaridade" name="escolaridade">
+
+        <button type="submit">Cadastrar</button>
+    </form>
+</main>
+
+<script>
+    document.getElementById("form-candidato").addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+
+        const response = await fetch("/candidatos", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+            alert("Candidato cadastrado com sucesso!");
+            this.reset();
+        } else {
+            alert("Erro ao cadastrar candidato.");
+        }
+    });
+</script>
+</body>
+</html>

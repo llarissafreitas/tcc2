@@ -3,39 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plataforma PCD</title>
+    <title>Plataforma PcD - Conectando talentos ao mercado de trabalho</title>
     <link rel="stylesheet" href="/css/styles.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <h1>Bem-vindo à Plataforma de Vagas para PCD</h1>
-    </header>
+<header class="header" role="banner">
+    <div class="container">
+        <a href="/" class="logo">
+            <h1>Plataforma PcD</h1>
+            <span class="sr-only">Página inicial</span>
+        </a>
+        <button class="menu-toggle" aria-expanded="false" aria-label="Menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav class="nav" role="navigation">
+            <ul class="nav-list">
+                <li><a href="/" class="nav-link active" aria-current="page">Página Inicial</a></li>
+                <li><a href="/cadastrar-vaga.html" class="nav-link">Cadastrar Vaga</a></li>
+                <li><a href="/vagas.html" class="nav-link">Visualizar Vagas</a></li>
+                <li><a href="/form-candidato.html">Cadastrar Candidato</a></li>
+                <li><a href="#" class="nav-link" id="contrast-toggle"><i class="fas fa-adjust"></i> Contraste</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
 
-    <nav>
-        <ul>
-
-            <li><a href="#">Página Inicial</a></li>
-            <li><a href="#">Cadastrar Vaga</a></li>
-            <li><a href="#">Visualizar Vagas</a></li>
-
-        </ul>
-    </nav>
-
-    <main>
-        <section>
-            <h2>Vagas Disponíveis</h2>
-            <div id="vaga-lista">
-                <!-- As vagas serão inseridas aqui -->
+<main class="main" role="main">
+    <section class="hero">
+        <div class="container">
+            <h2>Conectando pessoas com deficiência a oportunidades de trabalho</h2>
+            <p>Encontre vagas adaptadas às suas necessidades ou divulgue oportunidades inclusivas</p>
+            <div class="cta-buttons">
+                <a href="/vagas.html" class="btn btn-primary">Buscar Vagas</a>
+                <a href="/cadastrar-vaga.html" class="btn btn-secondary">Anunciar Vaga</a>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <footer>
-        <p>&copy; 2025 Plataforma PCD - Todos os direitos reservados.</p>
-    </footer>
+    <section class="stats">
+        <div class="container">
+            <div class="stat-card">
+                <i class="fas fa-users"></i>
+                <h3 id="candidatos-count">0</h3>
+                <p>Candidatos cadastrados</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-briefcase"></i>
+                <h3 id="vagas-count">0</h3>
+                <p>Vagas disponíveis</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-handshake"></i>
+                <h3 id="contratacoes-count">0</h3>
+                <p>Contratações realizadas</p>
+            </div>
+        </div>
+    </section>
+</main>
 
-     <script src="js/scripts.js"></script>
+<footer class="footer" role="contentinfo">
+    <div class="container">
+        <p>&copy; 2025 Plataforma PcD - Todos os direitos reservados.</p>
+        <ul class="footer-links">
+            <li><a href="/termos.html">Termos de Uso</a></li>
+            <li><a href="/privacidade.html">Política de Privacidade</a></li>
+            <li><a href="/contato.html">Contato</a></li>
+        </ul>
+    </div>
+</footer>
+
+<script src="/js/main.js"></script>
+<script src="/js/accessibility.js"></script>
 </body>
-
 </html>

@@ -1,4 +1,4 @@
-/*
+//exibindo vagas corretamente
 document.addEventListener("DOMContentLoaded", function() {
     const vagaLista = document.getElementById("vaga-lista");
 
@@ -29,4 +29,3 @@ document.addEventListener("DOMContentLoaded", function() {
     // Carregar as vagas assim que a página for carregada
     obterVagas();
 });
-*/
