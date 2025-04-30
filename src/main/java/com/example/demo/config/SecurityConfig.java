@@ -13,6 +13,7 @@ public class SecurityConfig implements WebMvcConfigurer {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(cors -> {})  // Ativa o suporte real de CORS!
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
@@ -32,6 +33,8 @@ public class SecurityConfig implements WebMvcConfigurer {
                                 "/form-empregador.html",
                                 "/form-empregador",
                                 "/form-empregador/**",
+                                "/empregadores",
+                                "/empregadores/**",
                                 "/css/**",
                                 "/js/**",
                                 "/images/**"
@@ -49,6 +52,6 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .allowedOriginPatterns("*") // substitui allowedOrigins("*") no Spring moderno
                 .allowedMethods("*")
                 .allowedHeaders("*")
-                .allowCredentials(false);
+                .allowCredentials(true);
     }
 }
