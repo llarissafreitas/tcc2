@@ -29,6 +29,9 @@ public class SecurityConfig implements WebMvcConfigurer {
                                 "/form-candidato.html",
                                 "/form-candidato",
                                 "/form-candidato/**",
+                                "/form-empregador.html",
+                                "/form-empregador",
+                                "/form-empregador/**",
                                 "/css/**",
                                 "/js/**",
                                 "/images/**"
