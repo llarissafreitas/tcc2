@@ -6,8 +6,6 @@ import com.example.demo.model.VagaDTO;
 import com.example.demo.repository.EmpregadorRepository;
 import com.example.demo.repository.VagaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +27,7 @@ public class VagaService {
             Vaga vaga = new Vaga();
             vaga.setTitulo(dto.getTitulo());
             vaga.setDescricao(dto.getDescricao());
-            vaga.setLocalizacao(dto.getLocal());
+            vaga.setLocal(dto.getLocal());
             vaga.setEmpregador(empregador);
             vaga.setSalario(dto.getSalario());
 
@@ -44,11 +42,14 @@ public class VagaService {
         return vagaRepository.save(vaga);
     }
 
-    public Page<Vaga> listarVagasComPagina(Pageable pageable) {
-        return vagaRepository.findAll(pageable);
-    }
-
     public List<Vaga> listarVagasSemPaginacao() {
-        return vagaRepository.findAll();
+        List<Vaga> vagas = vagaRepository.findAll();
+        // Força a carga dos empregadores
+        vagas.forEach(v -> {
+            if (v.getEmpregador() != null) {
+                v.getEmpregador().getId();
+            }
+        });
+        return vagas;
     }
 }

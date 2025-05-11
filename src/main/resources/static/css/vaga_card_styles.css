@@ -34,8 +34,30 @@ h1 {
 .vaga-card p {
     margin: 5px 0;
     line-height: 1.5;
+    color: #333;
 }
 
 .vaga-card strong {
     color: #2c3e50;
+}
+
+/* 🔧 Suporte a modo de alto contraste */
+@media (prefers-contrast: more) {
+    .vaga-card {
+        background-color: #000 !important;
+        border-color: #fff !important;
+    }
+
+    .vaga-card h3,
+    .vaga-card p,
+    .vaga-card strong {
+        color: #fff !important;
+    }
+
+    .vaga-card button,
+    .vaga-card a {
+        background-color: transparent !important;
+        color: #fff !important;
+        border: 1px solid #fff !important;
+    }
 }

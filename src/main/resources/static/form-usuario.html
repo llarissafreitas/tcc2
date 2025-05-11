@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro de Usuário</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/acessibilidade.css">
+  <style>
+    .header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .nav {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+    }
+    .nav-list {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .acessibilidade-controles {
+      display: flex;
+      gap: 0.4rem;
+      margin-left: auto;
+    }
+    @media (max-width: 768px) {
+      .header .container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .nav {
+        justify-content: flex-start;
+        width: 100%;
+        margin-top: 0.5rem;
+      }
+      .acessibilidade-controles {
+        justify-content: flex-end;
+        width: 100%;
+        margin-top: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<header class="header" role="banner">
+  <div class="container">
+    <a href="/" class="logo">
+      <h1>Plataforma PcD</h1>
+    </a>
+    <nav class="nav" role="navigation">
+      <ul class="nav-list">
+        <li><a href="/" class="nav-link" aria-current="page"><i class="fas fa-home"></i> Início</a></li>
+        <li><a href="/vagas.html" class="nav-link"><i class="fas fa-briefcase"></i> Vagas</a></li>
+        <li><a href="/form-usuario.html" class="nav-link"><i class="fas fa-user-plus"></i> Cadastro</a></li>
+        <li><a href="/login.html" class="nav-link"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+        <li id="menu-minhas-candidaturas" style="display: none;"><a href="/minhas-candidaturas.html" class="nav-link"><i class="fas fa-file-alt"></i> Minhas Candidaturas</a></li>
+        <li id="menu-minhas-vagas" style="display:none;"><a href="/minhas-vagas.html" class="nav-link"><i class="fas fa-tasks"></i> Minhas Vagas</a></li>
+        <li><a href="#" id="logout-link" class="nav-link" style="display: none;"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+        <li id="user-welcome" style="display:none; font-weight: bold;"></li>
+      </ul>
+    </nav>
+    <div class="acessibilidade-controles" id="acessibilidade-controles" aria-label="Controles de acessibilidade">
+      <!-- botões visuais de contraste ou tamanho de fonte aqui -->
+    </div>
+  </div>
+</header>
+
+<main>
+  <h1>Cadastro de Usuário</h1>
+  <form id="form-usuario">
+    <label for="tipo">Tipo de Usuário:</label>
+    <select id="tipo" name="tipo" required>
+      <option value="">Selecione</option>
+      <option value="CANDIDATO">CANDIDATO</option>
+      <option value="EMPREGADOR">EMPREGADOR</option>
+    </select>
+
+    <div id="comum">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="senha">Senha:</label>
+      <input type="password" id="senha" name="senha" required>
+    </div>
+
+    <div id="candidato-fields" style="display:none">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" required>
+
+      <label for="telefone">Telefone:</label>
+      <input type="text" id="telefone" name="telefone" required>
+
+      <label for="cpf">CPF:</label>
+      <input type="text" id="cpf" name="cpf" required>
+
+      <label for="enderecoCandidato">Endereço:</label>
+      <input type="text" id="enderecoCandidato" name="enderecoCandidato" required>
+
+      <label for="habilidades">Habilidades:</label>
+      <input type="text" id="habilidades" name="habilidades" required>
+
+      <label for="experiencia">Experiência:</label>
+      <input type="text" id="experiencia" name="experiencia" required>
+    </div>
+
+    <div id="empregador-fields" style="display:none">
+      <label for="nomeEmpresa">Nome da Empresa:</label>
+      <input type="text" id="nomeEmpresa" name="nomeEmpresa" required>
+
+      <label for="cnpj">CNPJ:</label>
+      <input type="text" id="cnpj" name="cnpj" required>
+
+      <label for="descricao">Descrição:</label>
+      <input type="text" id="descricao" name="descricao" required>
+
+      <label for="setor">Setor:</label>
+      <input type="text" id="setor" name="setor" required>
+
+      <label for="telefoneEmpresa">Telefone:</label>
+      <input type="text" id="telefoneEmpresa" name="telefoneEmpresa" required>
+
+      <label for="enderecoEmpregador">Endereço:</label>
+      <input type="text" id="enderecoEmpregador" name="enderecoEmpregador" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Cadastrar</button>
+  </form>
+</main>
+
+<script src="/js/form-usuario.js"></script>
+<script src="/js/auth-header.js"></script>
+<script src="/js/accessibility.js"></script>
+</body>
+</html>

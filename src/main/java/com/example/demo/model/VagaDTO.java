@@ -1,39 +1,15 @@
 package com.example.demo.model;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
-import java.util.List;
-
 public class VagaDTO {
-
-    @NotBlank(message = "O título é obrigatório")
     private String titulo;
-
-    @NotBlank(message = "A descrição é obrigatória")
     private String descricao;
-
-    @NotBlank(message = "O local é obrigatório")
     private String local;
-
-    private List<String> acessibilidade;
-
-    @NotNull(message = "O ID do empregador é obrigatório")
-    private Long empregadorId;
-
-    @NotNull(message = "O salário é obrigatório")
     private Double salario;
-
-    public Double getSalario() {
-        return salario;
-    }
-
-    public void setSalario(Double salario) {
-        this.salario = salario;
-    }
+    private String requisitos;
+    private Long empregadorId; // <- este campo é essencial
 
 
-    // Getters e Setters
+
     public String getTitulo() {
         return titulo;
     }
@@ -58,12 +34,20 @@ public class VagaDTO {
         this.local = local;
     }
 
-    public List<String> getAcessibilidade() {
-        return acessibilidade;
+    public Double getSalario() {
+        return salario;
     }
 
-    public void setAcessibilidade(List<String> acessibilidade) {
-        this.acessibilidade = acessibilidade;
+    public void setSalario(Double salario) {
+        this.salario = salario;
+    }
+
+    public String getRequisitos() {
+        return requisitos;
+    }
+
+    public void setRequisitos(String requisitos) {
+        this.requisitos = requisitos;
     }
 
     public Long getEmpregadorId() {

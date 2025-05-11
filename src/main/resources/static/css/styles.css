@@ -361,3 +361,27 @@ body {
     outline: 3px solid var(--accent-color);
     outline-offset: 2px;
 }
+
+.accessibility-controls {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  justify-content: flex-end;
+}
+
+.accessibility-controls button {
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 0.4rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.accessibility-controls button:hover {
+    background-color: var(--secondary-color);
+    color: blue;
+}

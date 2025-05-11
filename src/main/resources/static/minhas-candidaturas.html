@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Minhas Candidaturas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/acessibilidade.css">
+  <style>
+    .header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .nav {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+    }
+    .nav-list {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+    .acessibilidade-controles {
+        display: flex;
+        gap: 0.4rem;
+        margin-left: auto;
+    }
+    @media (max-width: 768px) {
+        .header .container {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .nav {
+            justify-content: flex-start;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+        .acessibilidade-controles {
+            justify-content: flex-end;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+    }
+  </style>
+</head>
+<body>
+<header class="header" role="banner">
+  <div class="container">
+    <a href="/" class="logo">
+      <h1>Plataforma PcD</h1>
+      <span class="sr-only">Página inicial</span>
+    </a>
+    <nav class="nav" role="navigation">
+      <ul class="nav-list">
+        <li><a href="/" class="nav-link"><i class="fas fa-home"></i> Início</a></li>
+        <li><a href="/vagas.html" class="nav-link"><i class="fas fa-briefcase"></i> Vagas</a></li>
+        <li id="login-link"><a href="/login.html" class="nav-link"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+        <li id="menu-minhas-candidaturas" style="display: none;"><a href="/minhas-candidaturas.html" class="nav-link"><i class="fas fa-file-alt"></i> Minhas Candidaturas</a></li>
+        <li id="menu-minhas-vagas" style="display:none;"><a href="/minhas-vagas.html" class="nav-link"><i class="fas fa-tasks"></i> Minhas Vagas</a></li>
+        <li><a href="#" id="logout-link" class="nav-link" style="display: none;"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+        <li id="user-welcome" style="display:none; font-weight: bold;"></li>
+
+      </ul>
+    </nav>
+    <div class="acessibilidade-controles" id="acessibilidade-controles" aria-label="Controles de acessibilidade">
+      <!-- botões visuais de contraste ou tamanho de fonte -->
+    </div>
+  </div>
+</header>
+<main>
+  <h1>Minhas Candidaturas</h1>
+  <div id="candidaturas-lista"></div>
+</main>
+<script src="/js/minhas-candidaturas.js"></script>
+<script src="/js/accessibility.js"></script>
+<script src="/js/auth-header.js"></script>
+</body>
+</html>

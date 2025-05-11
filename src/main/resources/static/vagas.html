@@ -4,45 +4,126 @@
     <meta charset="UTF-8">
     <title>Vagas Disponíveis</title>
     <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body>
-<main>
-    <h1>Vagas Disponíveis</h1>
-    <div id="vaga-lista"></div>
-</main>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/acessibilidade.css">
+    <link rel="stylesheet" href="/css/vaga_card_styles.css">
 
-<script>
-    async function obterVagas() {
-        try {
-            const response = await fetch("http://localhost:8081/vagas/listar-sem-paginacao");
-            const vagas = await response.json();
+    <style>
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
 
-            const container = document.getElementById("vaga-lista");
-            container.innerHTML = "";
+        .nav {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+        }
 
-            if (!vagas.length) {
-                container.innerHTML = "<p>Nenhuma vaga disponível.</p>";
-                return;
+        .nav-list {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .acessibilidade-controles {
+            display: flex;
+            gap: 0.4rem;
+            margin-left: auto;
+        }
+
+        @media (max-width: 768px) {
+            .header .container {
+                flex-direction: column;
+                align-items: flex-start;
             }
 
-            vagas.forEach(vaga => {
-                const card = document.createElement("div");
-                card.classList.add("vaga-card");
-                card.innerHTML = `
-                    <h3>${vaga.titulo}</h3>
-                    <p><strong>Descrição:</strong> ${vaga.descricao}</p>
-                    <p><strong>Local:</strong> ${vaga.localizacao || "Não informado"}</p>
-                    <p><strong>Salário:</strong> R$ ${vaga.salario?.toFixed(2) || "0.00"}</p>
-                    <p><strong>Empresa:</strong> ${vaga.empregador?.nome || "Desconhecida"}</p>
-                `;
-                container.appendChild(card);
-            });
-        } catch (err) {
-            console.error("Erro ao buscar vagas:", err);
-        }
+            .nav {
+                justify-content: flex-start;
+                width: 100%;
+                margin-top: 0.5rem;
+            }
+
+            .acessibilidade-controles {
+                justify-content: flex-end;
+                width: 100%;
+                margin-top: 0.5rem;
+
+                .btn-candidatar {
+        background-color: #ffffff;
+        color: #000000;
+        padding: 8px 16px;
+        border: 2px solid #ffc107;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 8px;
+        font-weight: bold;
     }
 
-    window.onload = obterVagas;
-</script>
+    .btn-candidatar:hover {
+        background-color: #ffc107;
+        color: #000000;
+    }
+
+    .btn-candidatar:focus {
+        outline: 3px solid #ffeb3b;
+        outline-offset: 2px;
+    }
+
+    .vaga-card {
+        border: 1px solid #ccc;
+        padding: 16px;
+        margin-bottom: 16px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+
+    .vaga-lista p {
+        font-size: 1.1em;
+    }
+            }
+        }
+    </style>
+</head>
+<body>
+<header class="header" role="banner">
+    <div class="container">
+        <a href="/" class="logo">
+            <h1>PcD Jobs</h1>
+            <span class="sr-only">Página inicial</span>
+        </a>
+        <nav class="nav" role="navigation">
+            <ul class="nav-list">
+                <li><a href="/" class="nav-link"><i class="fas fa-home"></i> Início</a></li>
+                <li><a href="/vagas.html" class="nav-link"><i class="fas fa-briefcase"></i> Vagas</a></li>
+                <li id="menu-cadastrar-vaga" style="display:none;"><a href="/cadastrar-vaga.html" class="nav-link"><i class="fas fa-plus-circle"></i> Cadastrar Vaga</a></li>
+                <li id="cadastro-link"><a href="/form-usuario.html" class="nav-link"><i class="fas fa-user-plus"></i> Cadastro</a></li>
+                <li id="login-link"><a href="/login.html" class="nav-link"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                <li id="menu-minhas-vagas" style="display:none;"><a href="/minhas-vagas.html" class="nav-link"><i class="fas fa-tasks"></i> Minhas Vagas</a></li>
+                <li id="menu-minhas-candidaturas" style="display:none;"><a href="/minhas-candidaturas.html" class="nav-link"><i class="fas fa-file-alt"></i> Minhas Candidaturas</a></li>
+                <li><a href="#" id="logout-link" class="nav-link" style="display: none;"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+                <li id="user-welcome" style="display:none; font-weight: bold;"></li>
+            </ul>
+        </nav>
+        <div class="acessibilidade-controles" id="acessibilidade-controles" aria-label="Controles de acessibilidade">
+            <!-- Botões de acessibilidade são mantidos aqui na direita -->
+        </div>
+    </div>
+</header>
+
+<main class="container">
+    <h1>Vagas Disponíveis</h1>
+    <div id="vaga-lista" aria-live="polite" class="vaga-lista"></div>
+</main>
+
+<script src="/js/accessibility.js"></script>
+<script src="/js/auth-header.js"></script>
+<script src="/js/vagas.js" defer></script>
 </body>
 </html>

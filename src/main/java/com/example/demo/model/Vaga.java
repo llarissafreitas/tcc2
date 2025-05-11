@@ -1,8 +1,10 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Vaga {
 
     @Id
@@ -10,16 +12,22 @@ public class Vaga {
     private Long id;
 
     private String titulo;
+
     private String descricao;
 
-    @Column(name = "local")
-    private String localizacao;
+    private String local;
 
-    private double salario;
+    private Double salario;
 
-    @ManyToOne
-    @JoinColumn(name = "empregador_id")
+    private String requisitos;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "empregador_id", nullable = false)
+    @JsonIgnoreProperties({"usuario", "vagas"}) // evita serializar o laço
     private Empregador empregador;
+
+
+    // Getters e Setters
 
     public Long getId() {
         return id;
@@ -45,20 +53,28 @@ public class Vaga {
         this.descricao = descricao;
     }
 
-    public String getLocalizacao() {
-        return localizacao;
+    public String getLocal() {
+        return local;
     }
 
-    public void setLocalizacao(String localizacao) {
-        this.localizacao = localizacao;
+    public void setLocal(String local) {
+        this.local = local;
     }
 
-    public double getSalario() {
+    public Double getSalario() {
         return salario;
     }
 
-    public void setSalario(double salario) {
+    public void setSalario(Double salario) {
         this.salario = salario;
+    }
+
+    public String getRequisitos() {
+        return requisitos;
+    }
+
+    public void setRequisitos(String requisitos) {
+        this.requisitos = requisitos;
     }
 
     public Empregador getEmpregador() {
